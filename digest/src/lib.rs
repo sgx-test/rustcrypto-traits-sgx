@@ -32,8 +32,10 @@
 #[macro_use]
 extern crate alloc;
 
-#[cfg(feature = "std")]
-extern crate std;
+#[cfg(all(feature = "std", feature = "mesalock_sgx", target_env = "sgx"))]
+#[macro_use] extern crate std;
+#[cfg(all(feature = "std", feature = "mesalock_sgx", not(target_env = "sgx")))]
+#[macro_use] extern crate sgx_tstd as std;
 
 #[cfg(feature = "dev")]
 #[cfg_attr(docsrs, doc(cfg(feature = "dev")))]
@@ -53,7 +55,6 @@ pub use crate::variable::{VariableOutput, VariableOutputDirty};
 pub use crate::xof::{ExtendableOutput, ExtendableOutputDirty, XofReader};
 pub use generic_array::{self, typenum::consts};
 
-#[cfg(feature = "alloc")]
 pub use dyn_digest::DynDigest;
 
 use generic_array::ArrayLength;

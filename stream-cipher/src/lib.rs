@@ -10,8 +10,10 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs, rust_2018_idioms)]
 
-#[cfg(feature = "std")]
+#[cfg(all(feature = "std", feature = "mesalock_sgx", target_env = "sgx"))]
 extern crate std;
+#[cfg(all(feature = "std", feature = "mesalock_sgx", not(target_env = "sgx")))]
+extern crate sgx_tstd as std;
 
 #[cfg(feature = "dev")]
 #[cfg_attr(docsrs, doc(cfg(feature = "dev")))]

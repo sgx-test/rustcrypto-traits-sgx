@@ -1,12 +1,14 @@
 #![cfg(feature = "alloc")]
 use alloc::boxed::Box;
 
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx"), not(feature = "alloc")))]
+use std::prelude::v1::*;
+
 use super::{FixedOutput, Reset, Update};
 use generic_array::typenum::Unsigned;
 
 /// The `DynDigest` trait is a modification of `Digest` trait suitable
 /// for trait objects.
-#[cfg_attr(docsrs, doc(cfg(feature = "alloc")))]
 pub trait DynDigest {
     /// Digest input data.
     ///
