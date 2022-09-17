@@ -22,7 +22,7 @@ optional = true
 path = "../block-cipher"
 
 [features]
-std = ["mesalock_sgx"]
+default = ["mesalock_sgx"]
 dev = ["blobby"]
 mesalock_sgx = ["sgx_tstd"]
 
