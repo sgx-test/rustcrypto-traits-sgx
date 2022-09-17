@@ -4,6 +4,8 @@ use crate::{InvalidOutputSize, Reset};
 
 #[cfg(feature = "alloc")]
 use alloc::boxed::Box;
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx"), not(feature = "alloc")))]
+use std::prelude::v1::*;
 
 /// Trait for returning digest result with the variable size
 pub trait VariableOutput: Sized {
